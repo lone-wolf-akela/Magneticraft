@@ -29,6 +29,8 @@ class ModuleSolarTower(
     var searchMirrors = false
     val production = ValueAverage()
 
+    var meltStartTime = Long.MAX_VALUE
+
     override fun update() {
         if (world.isClient) return
 
@@ -44,7 +46,19 @@ class ModuleSolarTower(
             node.applyHeat(-diff * 0.25)
         }
         if (node.temperature > 4000f.fromCelsiusToKelvin()) {
-            meltDown()
+            val worldTime = world.totalWorldTime
+            if (meltStartTime > worldTime)
+            {
+                meltStartTime = worldTime
+            }
+            else if(worldTime - meltStartTime >= 20 * 60)
+            {
+                meltDown()
+            }
+        }
+        else
+        {
+            meltStartTime = Long.MAX_VALUE
         }
     }
 
