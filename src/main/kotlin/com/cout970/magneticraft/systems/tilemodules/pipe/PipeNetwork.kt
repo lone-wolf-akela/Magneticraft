@@ -33,7 +33,7 @@ class PipeNetwork(module: ModulePipe) : Network<ModulePipe>(
 }
 
 enum class PipeType(val maxRate: Int) {
-    IRON(160),
-    STEEL(320),
+    IRON(640),
+    STEEL(640),
     TUNGSTEN(640)
 }
